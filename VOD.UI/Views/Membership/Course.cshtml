@@ -34,9 +34,8 @@
 
 <div class="row">
     <div class="col-sm-9">
-        <div class="col-sm-9">
-            @foreach (var module in Model.Modules)
-            {
+        @foreach (var module in Model.Modules)
+        {
             <div class="card small-top-margin no-border-radius">
                 <div class="card-body">
                     <h5>@module.ModuleTitle</h5>
@@ -58,8 +57,7 @@
                     </div>
                 }
             </div>
-            }
-        </div>
+        }
     </div>
     <div class="col-sm-3">
         @if (Model.Instructor != null)
