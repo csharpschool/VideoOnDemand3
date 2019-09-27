@@ -47,6 +47,16 @@
                     <partial name="_ModuleVideosPartial" model="@module.Videos" />
                 }
 
+                @if (module.Downloads != null && module.Downloads.Count > 0)
+                {
+                    <hr class="no-margin">
+                    <div class="card-body no-bottom-padding">
+                        <h5>Downloads</h5>
+                    </div>
+                    <div class="card-body no-top-padding">
+                        <partial name="_ModuleDownloadsPartial" model="@module.Downloads" />
+                    </div>
+                }
             </div>
             }
         </div>
