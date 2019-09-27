@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VOD.UI", "VOD.UI\VOD.UI.csproj", "{1C7638F5-FA24-43F6-BFFB-16E03F17816D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VOD.Common", "VOD.Common\VOD.Common.csproj", "{2F7F2F44-A8B4-42A8-BD2D-977DE64E4D06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VOD.Database", "VOD.Database\VOD.Database.csproj", "{5CEEA26C-CC35-44B8-8C59-395D7412EF99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{1C7638F5-FA24-43F6-BFFB-16E03F17816D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C7638F5-FA24-43F6-BFFB-16E03F17816D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C7638F5-FA24-43F6-BFFB-16E03F17816D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F7F2F44-A8B4-42A8-BD2D-977DE64E4D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7F2F44-A8B4-42A8-BD2D-977DE64E4D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F7F2F44-A8B4-42A8-BD2D-977DE64E4D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F7F2F44-A8B4-42A8-BD2D-977DE64E4D06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CEEA26C-CC35-44B8-8C59-395D7412EF99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CEEA26C-CC35-44B8-8C59-395D7412EF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CEEA26C-CC35-44B8-8C59-395D7412EF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CEEA26C-CC35-44B8-8C59-395D7412EF99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
