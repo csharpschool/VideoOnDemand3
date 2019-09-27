@@ -8,4 +8,14 @@
         </div>
     }
 
+    <div class="card-body">
+        <h2>@Model.Video.Title</h2>
+        <p class="text-muted">
+            <i class="material-icons vertical-align text-small">movie</i>
+            Lesson @Model.LessonInfo.LessonNumber/@Model.LessonInfo.NumberOfLessons&nbsp;&nbsp;
+            <i class="material-icons vertical-align text-small">alarm</i>
+            @Model.Video.Duration minutes
+        </p>
+    </div>
+
 </div>
