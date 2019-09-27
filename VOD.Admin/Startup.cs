@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VOD.Database.Contexts;
 using VOD.Common.Entities;
+using VOD.Database.Services;
 
 namespace VOD.Admin
 {
@@ -35,6 +36,8 @@ namespace VOD.Admin
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<VODContext>();
             services.AddRazorPages();
+
+            services.AddScoped<IDbReadService, DbReadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
