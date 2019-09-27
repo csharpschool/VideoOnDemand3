@@ -33,6 +33,7 @@ namespace VOD.UI.Controllers
             if (user != null)
             {
                 var courses = await _db.GetCoursesAsync(user.Id);
+                var course = await _db.GetCourseAsync(user.Id, 1);
             }
 
             if (!_signInManager.IsSignedIn(User))

@@ -9,5 +9,6 @@ namespace VOD.UI.Services
     public interface IUIReadService
     {
         Task<IEnumerable<Course>> GetCoursesAsync(string userId);
+        Task<Course> GetCourseAsync(string userId, int courseId);
     }
 }

@@ -28,6 +28,16 @@ namespace VOD.UI.Services
 
             return userCourses.Select(c => c.Course);
         }
+        public async Task<Course> GetCourseAsync(string userId, int courseId)
+        {
+            _db.Include<Course, Module>();
+            var userCourse = await _db.SingleAsync<UserCourse>(c =>
+                c.UserId.Equals(userId) && c.CourseId.Equals(courseId));
+
+            if (userCourse == null) return default;
+            
+            return userCourse.Course;
+        }
         #endregion
 
     }
