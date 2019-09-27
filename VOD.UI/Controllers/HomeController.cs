@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
+using VOD.Common.Entities;
 using VOD.UI.Models;
 
 namespace VOD.UI.Controllers
@@ -12,10 +14,12 @@ namespace VOD.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private SignInManager<VODUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, SignInManager<VODUser> signInMgr)
         {
             _logger = logger;
+            _signInManager = signInMgr;
         }
 
         public IActionResult Index()
