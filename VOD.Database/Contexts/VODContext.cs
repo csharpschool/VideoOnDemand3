@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace VOD.Database.Contexts
 {
@@ -104,6 +105,28 @@ namespace VOD.Database.Contexts
                 userId = Users.First(r => r.Email.Equals(email)).Id;
             else
                 return;
+            #endregion
+
+            #region Add Instructors if they don't already exist
+            if (!Instructors.Any())
+            {
+                var instructors = new List<Instructor>
+                    {
+                        new Instructor {
+                            Name = "John Doe",
+                            Description = description.Substring(20, 50),
+                            Thumbnail = "/images/Ice-Age-Scrat-icon.png"
+                        },
+                        new Instructor {
+                            Name = "Jane Doe",
+                            Description = description.Substring(30, 40),
+                            Thumbnail = "/images/Ice-Age-Scrat-icon.png"
+                        }
+                    };
+                Instructors.AddRange(instructors);
+                SaveChanges();
+            }
+            if (Instructors.Count() < 2) return;
             #endregion
 
         }
