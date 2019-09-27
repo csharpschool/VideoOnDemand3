@@ -183,6 +183,27 @@ namespace VOD.Database.Contexts
             if (UserCourses.Count() < 3) return;
             #endregion
 
+            #region Add Modules if they don't already exist
+            if (!Modules.Any())
+            {
+                var modules = new List<Module>
+                    {
+                        new Module { Course = Find<Course>(courseId1), Title = "Modeule 1" },
+                        new Module { Course = Find<Course>(courseId1), Title = "Modeule 2" },
+                        new Module { Course = Find<Course>(courseId2), Title = "Modeule 3" }
+                    };
+                Modules.AddRange(modules);
+                SaveChanges();
+            }
+            if (Modules.Count() < 3) return;
+            #endregion
+
+            #region Fetch Module ids if any modules exist
+            var module1 = Modules.First();
+            var module2 = Modules.Skip(1).FirstOrDefault();
+            var module3 = Modules.Skip(2).FirstOrDefault();
+            #endregion
+
         }
     }
 }
