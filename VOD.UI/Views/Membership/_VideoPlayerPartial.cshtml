@@ -1,5 +1,11 @@
 ﻿@model VideoViewModel
 
 <div class="card no-border-radius">
+    @if (Model.Video.Url != null)
+    {
+        <div class="video-player">
+            <iframe src="@Model.Video.Url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    }
 
 </div>
