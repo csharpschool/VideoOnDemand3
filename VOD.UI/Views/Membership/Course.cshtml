@@ -37,12 +37,17 @@
         <div class="col-sm-9">
             @foreach (var module in Model.Modules)
             {
-                <div class="card small-top-margin no-border-radius">
-                    <div class="card-body">
-                        <h5>@module.ModuleTitle</h5>
-                    </div>
-                    <hr class="no-margin">
+            <div class="card small-top-margin no-border-radius">
+                <div class="card-body">
+                    <h5>@module.ModuleTitle</h5>
                 </div>
+                <hr class="no-margin">
+                @if (module.Videos != null && module.Videos.Count > 0)
+                {
+                    <partial name="_ModuleVideosPartial" model="@module.Videos" />
+                }
+
+            </div>
             }
         </div>
     </div>
