@@ -68,6 +68,10 @@ namespace VOD.UI.Controllers
         public async Task<IActionResult> Video(int id)
         {
             var video = await _db.GetVideoAsync(_userId, id);
+            var videoDTO = _mapper.Map<VideoDTO>(video);
+            var courseDTO = _mapper.Map<CourseDTO>(video.Course);
+            var instructorDTO = _mapper.Map<InstructorDTO>(video.Course.Instructor);
+
             return View();
         }
 
