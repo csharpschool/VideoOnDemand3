@@ -8,18 +8,21 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using VOD.Common.Entities;
 using VOD.UI.Models;
+using VOD.Database.Services;
 
 namespace VOD.UI.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private SignInManager<VODUser> _signInManager;
+        private readonly SignInManager<VODUser> _signInManager;
+        private readonly IDbReadService _db;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<VODUser> signInMgr)
+        public HomeController(ILogger<HomeController> logger, SignInManager<VODUser> signInMgr, IDbReadService db)
         {
             _logger = logger;
             _signInManager = signInMgr;
+            _db = db;
         }
 
         public IActionResult Index()
