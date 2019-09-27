@@ -65,8 +65,9 @@ namespace VOD.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Video(int id)
+        public async Task<IActionResult> Video(int id)
         {
+            var video = await _db.GetVideoAsync(_userId, id);
             return View();
         }
 
