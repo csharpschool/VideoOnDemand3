@@ -13,6 +13,21 @@ namespace VOD.Admin.TagHelpers
     [HtmlTargetElement("btn")]
     public class BtnTagHelper : AnchorTagHelper
     {
+        #region Properties
+        public string Icon { get; set; } = string.Empty;
+        #endregion
+
+        #region Constants
+        const string btnPrimary = "btn-primary";
+        const string btnDanger = "btn-danger";
+        const string btnDefault = "btn-default";
+        const string btnInfo = "btn-info";
+        const string btnSucess = "btn-success";
+        const string btnWarning = "btn-warning";
+        // Google's Material Icons provider name
+        const string iconProvider = "material-icons";
+        #endregion
+
         public BtnTagHelper(IHtmlGenerator generator) : base(generator)
         {
         }
