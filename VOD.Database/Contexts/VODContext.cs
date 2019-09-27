@@ -129,6 +129,48 @@ namespace VOD.Database.Contexts
             if (Instructors.Count() < 2) return;
             #endregion
 
+            #region Add Courses if they don't already exist
+            if (!Courses.Any())
+            {
+                var instructorId1 = Instructors.First().Id;
+                var instructorId2 = Instructors.Skip(1).FirstOrDefault().Id;
+
+                var courses = new List<Course>
+                    {
+                        new Course {
+                            InstructorId = instructorId1,
+                            Title = "Course 1",
+                            Description = description,
+                            ImageUrl = "/images/course1.jpg",
+                            MarqueeImageUrl = "/images/laptop.jpg"
+                        },
+                        new Course {
+                            InstructorId = instructorId2,
+                            Title = "Course 2",
+                            Description = description,
+                            ImageUrl = "/images/course2.jpg",
+                            MarqueeImageUrl = "/images/laptop.jpg"
+                        },
+                        new Course {
+                            InstructorId = instructorId1,
+                            Title = "Course 3",
+                            Description = description,
+                            ImageUrl = "/images/course3.jpg",
+                            MarqueeImageUrl = "/images/laptop.jpg"
+                        }
+                    };
+                Courses.AddRange(courses);
+                SaveChanges();
+            }
+            if (Courses.Count() < 3) return;
+            #endregion
+
+            #region Fetch Course ids if any courses exists
+            var courseId1 = Courses.First().Id;
+            var courseId2 = Courses.Skip(1).FirstOrDefault().Id;
+            var courseId3 = Courses.Skip(2).FirstOrDefault().Id;
+            #endregion
+
         }
     }
 }
