@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VOD.Common.Entities;
 using VOD.UI.Services;
+using VOD.Common.DTOModels;
 
 namespace VOD.UI.Controllers
 {
@@ -28,8 +29,10 @@ namespace VOD.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
+            var courseDtoObjects = _mapper.Map<List<CourseDTO>>(await _db.GetCoursesAsync(_userId));
+
             return View();
         }
 
