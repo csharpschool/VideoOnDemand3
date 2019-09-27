@@ -171,6 +171,18 @@ namespace VOD.Database.Contexts
             var courseId3 = Courses.Skip(2).FirstOrDefault().Id;
             #endregion
 
+            #region Add UserCourses connections if they don't already exist
+            if (!UserCourses.Any())
+            {
+                UserCourses.Add(new UserCourse { UserId = userId, CourseId = courseId1 });
+                UserCourses.Add(new UserCourse { UserId = userId, CourseId = courseId2 });
+                UserCourses.Add(new UserCourse { UserId = userId, CourseId = courseId3 });
+
+                SaveChanges();
+            }
+            if (UserCourses.Count() < 3) return;
+            #endregion
+
         }
     }
 }
