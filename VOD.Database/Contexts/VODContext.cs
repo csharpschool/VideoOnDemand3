@@ -4,6 +4,7 @@ using System.Text;
 using VOD.Common.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace VOD.Database.Contexts
 {
@@ -34,6 +35,12 @@ namespace VOD.Database.Contexts
                 NormalizedUserName = email.ToUpper(),
                 EmailConfirmed = true
             };
+
+            var passwordHasher = new PasswordHasher<VODUser>();
+            user.PasswordHash = passwordHasher.HashPassword(user, password);
+
+            // Add user to database
+            builder.Entity<VODUser>().HasData(user);
             #endregion
 
         }
