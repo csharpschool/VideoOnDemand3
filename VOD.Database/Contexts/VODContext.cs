@@ -9,6 +9,13 @@ namespace VOD.Database.Contexts
 {
     public class VODContext : IdentityDbContext<VODUser>
     {
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Download> Downloads { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Module> Modules { get; set; }
+        public DbSet<UserCourse> UserCourses { get; set; }
+        public DbSet<Video> Videos { get; set; }
+
         public VODContext(DbContextOptions<VODContext> options) : base(options)
         {
         }
