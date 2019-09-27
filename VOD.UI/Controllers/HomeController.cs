@@ -27,13 +27,18 @@ namespace VOD.UI.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (!_signInManager.IsSignedIn(User))
-                return RedirectToPage("/Account/Login",
-                    new { Area = "Identity" });
+            var user = await _signInManager.UserManager.GetUserAsync(HttpContext.User);
+            if (user != null)
+            {
+                var courses = await _db.GetCoursesAsync(user.Id);
+            }
 
-            return View();
+            if (!_signInManager.IsSignedIn(User))
+                return RedirectToPage("/Account/Login", new { Area = "Identity" });
+
+            return RedirectToAction("Dashboard", "Membership");
         }
 
         public IActionResult Privacy()
