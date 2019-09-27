@@ -18,26 +18,15 @@ namespace VOD.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<VODUser> _signInManager;
-        private readonly IUIReadService _db;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<VODUser> signInMgr, IUIReadService db)
+        public HomeController(ILogger<HomeController> logger, SignInManager<VODUser> signInMgr)
         {
             _logger = logger;
             _signInManager = signInMgr;
-            _db = db;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var user = await _signInManager.UserManager.GetUserAsync(HttpContext.User);
-            if (user != null)
-            {
-                var courses = await _db.GetCoursesAsync(user.Id);
-                var course = await _db.GetCourseAsync(user.Id, 1);
-                var videos = await _db.GetVideosAsync(user.Id, 1);
-                var video = await _db.GetVideoAsync(user.Id, 1);
-            }
-
             if (!_signInManager.IsSignedIn(User))
                 return RedirectToPage("/Account/Login", new { Area = "Identity" });
 
