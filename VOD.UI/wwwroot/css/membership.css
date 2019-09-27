@@ -73,3 +73,19 @@
        image’s absolute position */
     position: relative;
 }
+
+.module-video:hover {
+    background-color: #5ab3ff;
+}
+
+.module-video a:hover {
+    text-decoration: none;
+}
+
+.module-video .media-body {
+    margin-left: 5px;
+}
+
+.module-video h5 {
+    margin-top: -5px;
+}
