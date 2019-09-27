@@ -204,6 +204,66 @@ namespace VOD.Database.Contexts
             var module3 = Modules.Skip(2).FirstOrDefault();
             #endregion
 
+            #region Add Videos if they don't already exist
+            if (!Videos.Any())
+            {
+                var videos = new List<Video>
+                    {
+                        new Video { ModuleId = module1.Id, CourseId = module1.CourseId,
+                            Title = "Video 1 Title",
+                            Description = description.Substring(1, 35),
+                            Duration = 50, Thumbnail = "/images/video1.jpg",
+                            Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
+                        },
+                        new Video { ModuleId = module1.Id, CourseId = module1.CourseId,
+                            Title = "Video 2 Title",
+                            Description = description.Substring(5, 35),
+                            Duration = 45, Thumbnail = "/images/video2.jpg",
+                            Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
+                        },
+                        new Video { ModuleId = module1.Id, CourseId = module1.CourseId,
+                            Title = "Video 3 Title",
+                            Description = description.Substring(10, 35),
+                            Duration = 41, Thumbnail = "/images/video3.jpg",
+                            Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
+                        },
+                        new Video { ModuleId = module3.Id, CourseId = module3.CourseId,
+                            Title = "Video 4 Title",
+                            Description = description.Substring(15, 35),
+                            Duration = 41, Thumbnail = "/images/video4.jpg",
+                            Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
+                        },
+                        new Video { ModuleId = module2.Id, CourseId = module2.CourseId,
+                            Title = "Video 5 Title",
+                            Description = description.Substring(20, 35),
+                            Duration = 42, Thumbnail = "/images/video5.jpg",
+                            Url = "https://www.youtube.com/embed/BJFyzpBcaCY"
+                        }
+                    };
+                Videos.AddRange(videos);
+                SaveChanges();
+            }
+            #endregion
+
+            #region Add Downloads if they don't already exist
+            if (!Downloads.Any())
+            {
+                var downloads = new List<Download>
+                    {
+                        new Download{ ModuleId = module1.Id, CourseId = module1.CourseId,
+                            Title = "ADO.NET 1 (PDF)", Url = "https://some-url" },
+
+                        new Download{ ModuleId = module1.Id, CourseId = module1.CourseId,
+                            Title = "ADO.NET 2 (PDF)", Url = "https://some-url" },
+
+                        new Download{ ModuleId = module3.Id, CourseId = module3.CourseId,
+                            Title = "ADO.NET 1 (PDF)", Url = "https://some-url" }
+                    };
+
+                Downloads.AddRange(downloads);
+                SaveChanges();
+            }
+            #endregion
         }
     }
 }
