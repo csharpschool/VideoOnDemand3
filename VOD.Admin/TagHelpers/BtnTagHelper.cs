@@ -95,6 +95,14 @@ namespace VOD.Admin.TagHelpers
             }
             #endregion
 
+            #region Style Attribute
+            // Fetch style attribute if it exist
+            var style = context.AllAttributes.SingleOrDefault(s => s.Name.ToLower().Equals("style"));
+            var styleValue = style == null ? "" : style.Value;
+            var newStyle = new TagHelperAttribute("style", $"{styleValue} display:inline-flex;border-radius:0px;text-decoration: none;");
+            if (style != null) output.Attributes.Remove(style);
+            output.Attributes.Add(newStyle);
+            #endregion
 
             base.Process(context, output);
         }
