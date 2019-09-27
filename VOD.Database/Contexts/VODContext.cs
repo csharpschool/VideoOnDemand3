@@ -16,10 +16,10 @@ namespace VOD.Database.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            SeedData();
+            SeedData(builder);
         }
 
-        private void SeedData()
+        private void SeedData(ModelBuilder builder)
         {
             #region Admin Credentials Properties
             var email = "a@b.c";
