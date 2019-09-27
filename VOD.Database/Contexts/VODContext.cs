@@ -43,6 +43,39 @@ namespace VOD.Database.Contexts
             builder.Entity<VODUser>().HasData(user);
             #endregion
 
+            #region Admin Roles and Claims
+            var admin = "Admin";
+            var role = new IdentityRole
+            {
+                Id = "1",
+                Name = admin,
+                NormalizedName = admin.ToUpper()
+            };
+
+            builder.Entity<IdentityRole>().HasData(role);
+
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = role.Id,
+                UserId = user.Id
+            });
+
+            builder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
+            {
+                Id = 1,
+                ClaimType = admin,
+                ClaimValue = "true",
+                UserId = user.Id
+            });
+
+            builder.Entity<IdentityUserClaim<string>>().HasData(new IdentityUserClaim<string>
+            {
+                Id = 2,
+                ClaimType = "VODUser",
+                ClaimValue = "true",
+                UserId = user.Id
+            });
+            #endregion
         }
     }
 }
