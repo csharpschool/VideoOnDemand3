@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using VOD.Common.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace VOD.Database.Contexts
 {
@@ -18,6 +17,12 @@ namespace VOD.Database.Contexts
         {
             base.OnModelCreating(builder);
             SeedData(builder);
+            builder.Entity<UserCourse>().HasKey(uc => new { uc.UserId, uc.CourseId });
+            foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
         }
 
         private void SeedData(ModelBuilder builder)
