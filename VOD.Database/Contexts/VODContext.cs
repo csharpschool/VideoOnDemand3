@@ -16,6 +16,26 @@ namespace VOD.Database.Contexts
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            SeedData();
+        }
+
+        private void SeedData()
+        {
+            #region Admin Credentials Properties
+            var email = "a@b.c";
+            var password = "Test123__";
+
+            var user = new VODUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                Email = email,
+                NormalizedEmail = email.ToUpper(),
+                UserName = email,
+                NormalizedUserName = email.ToUpper(),
+                EmailConfirmed = true
+            };
+            #endregion
+
         }
     }
 }
