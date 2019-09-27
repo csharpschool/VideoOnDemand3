@@ -34,6 +34,15 @@ namespace VOD.Admin.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
+            if (output == null)
+                throw new ArgumentNullException(nameof(output));
+
+            // Changes <btn> tag to <a> tag when rendered
+            output.TagName = "a";
+
+            base.Process(context, output);
 
         }
     }
