@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using VOD.Database.Contexts;
 using VOD.Common.Entities;
 using VOD.Database.Services;
+using VOD.UI.Services;
 
 namespace VOD.UI
 {
@@ -38,6 +39,7 @@ namespace VOD.UI
             services.AddRazorPages();
 
             services.AddScoped<IDbReadService, DbReadService>();
+            services.AddScoped<IUIReadService, UIReadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
