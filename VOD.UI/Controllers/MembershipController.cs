@@ -35,8 +35,13 @@ namespace VOD.UI.Controllers
             var courseDtoObjects = _mapper.Map<List<CourseDTO>>(await _db.GetCoursesAsync(_userId));
             var dashboardModel = new DashboardViewModel();
             dashboardModel.Courses = new List<List<CourseDTO>>();
+            var noOfRows = courseDtoObjects.Count <= 3 ? 1 : courseDtoObjects.Count / 3;
+            for (var i = 0; i < noOfRows; i++)
+            {
+                dashboardModel.Courses.Add(courseDtoObjects.Skip(i * 3).Take(3).ToList());
+            }
 
-            return View();
+            return View(dashboardModel);
         }
 
         [HttpGet]
