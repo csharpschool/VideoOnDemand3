@@ -38,7 +38,6 @@ namespace VOD.UI.Services
             
             return userCourse.Course;
         }
-
         public async Task<IEnumerable<Video>> GetVideosAsync(string userId, int moduleId = 0)
         {
             _db.Include<Video>();
@@ -54,6 +53,19 @@ namespace VOD.UI.Services
 
             return module.Videos;
         }
+        public async Task<Video> GetVideoAsync(string userId, int videoId)
+        {
+            _db.Include<Course, Module>();
+            var video = await _db.SingleAsync<Video>(v => v.Id.Equals(videoId));
+            if (video == null) return default;
+
+            var userCourse = await _db.SingleAsync<UserCourse>(c =>
+                c.UserId.Equals(userId) && c.CourseId.Equals(video.CourseId));
+            if (userCourse == null) return default;
+
+            return video;
+        }
+
         #endregion
 
     }

@@ -35,6 +35,7 @@ namespace VOD.UI.Controllers
                 var courses = await _db.GetCoursesAsync(user.Id);
                 var course = await _db.GetCourseAsync(user.Id, 1);
                 var videos = await _db.GetVideosAsync(user.Id, 1);
+                var video = await _db.GetVideoAsync(user.Id, 1);
             }
 
             if (!_signInManager.IsSignedIn(User))
