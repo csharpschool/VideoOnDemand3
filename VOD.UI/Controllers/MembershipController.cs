@@ -72,6 +72,19 @@ namespace VOD.UI.Controllers
             var courseDTO = _mapper.Map<CourseDTO>(video.Course);
             var instructorDTO = _mapper.Map<InstructorDTO>(video.Course.Instructor);
 
+            var videos = video.Module.Videos;
+            var count = videos.Count();
+            var index = videos.FindIndex(v => v.Id.Equals(id));
+
+            var previous = videos.ElementAtOrDefault(index - 1);
+            var previousId = previous == null ? 0 : previous.Id;
+
+            var next = videos.ElementAtOrDefault(index + 1);
+            var nextId = next == null ? 0 : next.Id;
+            var nextTitle = next == null ? string.Empty : next.Title;
+            var nextThumb = next == null ? string.Empty : next.Thumbnail;
+
+
             return View();
         }
 
