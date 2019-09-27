@@ -45,9 +45,11 @@ namespace VOD.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Course(int id)
+        public async Task<IActionResult> Course(int id)
         {
-            return View();
+            var course = await _db.GetCourseAsync(_userId, id);
+
+            return View(courseModel);
         }
 
         [HttpGet]
