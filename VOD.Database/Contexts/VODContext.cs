@@ -13,5 +13,9 @@ namespace VOD.Database.Contexts
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }
