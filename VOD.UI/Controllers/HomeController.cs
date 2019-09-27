@@ -10,6 +10,7 @@ using VOD.Common.Entities;
 using VOD.UI.Models;
 using VOD.Database.Services;
 using VOD.Common.Extensions;
+using VOD.UI.Services;
 
 namespace VOD.UI.Controllers
 {
@@ -17,11 +18,13 @@ namespace VOD.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<VODUser> _signInManager;
+        private readonly IUIReadService _db;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<VODUser> signInMgr)
+        public HomeController(ILogger<HomeController> logger, SignInManager<VODUser> signInMgr, IUIReadService db)
         {
             _logger = logger;
             _signInManager = signInMgr;
+            _db = db;
         }
 
         public IActionResult Index()
