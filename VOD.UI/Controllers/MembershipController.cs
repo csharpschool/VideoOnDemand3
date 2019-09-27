@@ -49,6 +49,18 @@ namespace VOD.UI.Controllers
         {
             var course = await _db.GetCourseAsync(_userId, id);
 
+            var courseDTO = _mapper.Map<CourseDTO>(course);
+            var instructorDTO = _mapper.Map<InstructorDTO>(
+                course.Instructor);
+            var moduleDTOs = _mapper.Map<List<ModuleDTO>>(course.Modules);
+
+            var courseModel = new CourseViewModel
+            {
+                Course = courseDTO,
+                Instructor = instructorDTO,
+                Modules = moduleDTOs
+            };
+
             return View(courseModel);
         }
 
