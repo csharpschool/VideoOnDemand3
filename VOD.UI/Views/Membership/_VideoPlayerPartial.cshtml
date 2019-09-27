@@ -16,6 +16,14 @@
             <i class="material-icons vertical-align text-small">alarm</i>
             @Model.Video.Duration minutes
         </p>
+        <div class="video-course">
+            <img src="@Model.Course.CourseImageUrl">
+            <span class="vertical-align text-large">@Model.Course.CourseTitle</span>
+        </div>
+        <hr class="no-margin">
+        <div class="card-body">
+            @Model.Video.Description
+        </div>
     </div>
 
 </div>
