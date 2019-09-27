@@ -23,9 +23,4 @@
     <ProjectReference Include="..\VOD.Database\VOD.Database.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Models\MembershipViewModels\" />
-  </ItemGroup>
-
 </Project>
