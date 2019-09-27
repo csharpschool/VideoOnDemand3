@@ -84,6 +84,18 @@ namespace VOD.Admin.TagHelpers
             }
             #endregion
 
+            #region Icon
+            if (!Icon.Equals(string.Empty))
+            {
+                var childContext = output.GetChildContentAsync().Result;
+                var content = childContext.GetContent().Trim();
+                if (content.Length > 0) content = $"&nbsp{content}";
+
+                output.Content.SetHtmlContent($"<i class='{iconProvider}' style='display: inline-flex; vertical-align: top; line-height: inherit;font-size: medium;'>{Icon}</i> <span style='font-size: medium;'>{content}</span>");
+            }
+            #endregion
+
+
             base.Process(context, output);
         }
     }
