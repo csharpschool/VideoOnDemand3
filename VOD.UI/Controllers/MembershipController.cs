@@ -32,13 +32,13 @@ namespace VOD.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
-            var courseDtoObjects = _mapper.Map<List<CourseDTO>>(await _db.GetCoursesAsync(_userId));
+            var courseDto = _mapper.Map<List<CourseDTO>>((await _db.GetCoursesAsync(_userId)).OrderBy(o => o.Title));
             var dashboardModel = new DashboardViewModel();
             dashboardModel.Courses = new List<List<CourseDTO>>();
-            var noOfRows = courseDtoObjects.Count <= 3 ? 1 : courseDtoObjects.Count / 3;
+            var noOfRows = courseDto.Count <= 3 ? 1 : courseDto.Count / 3;
             for (var i = 0; i < noOfRows; i++)
             {
-                dashboardModel.Courses.Add(courseDtoObjects.Skip(i * 3).Take(3).ToList());
+                dashboardModel.Courses.Add(courseDto.Skip(i * 3).Take(3).ToList());
             }
 
             return View(dashboardModel);
@@ -52,7 +52,7 @@ namespace VOD.UI.Controllers
             var courseDTO = _mapper.Map<CourseDTO>(course);
             var instructorDTO = _mapper.Map<InstructorDTO>(
                 course.Instructor);
-            var moduleDTOs = _mapper.Map<List<ModuleDTO>>(course.Modules);
+            var moduleDTOs = _mapper.Map<List<ModuleDTO>>(course.Modules.OrderBy(o => o.Title));
 
             var courseModel = new CourseViewModel
             {
