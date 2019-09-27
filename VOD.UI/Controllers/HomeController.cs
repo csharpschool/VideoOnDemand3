@@ -24,6 +24,10 @@ namespace VOD.UI.Controllers
 
         public IActionResult Index()
         {
+            if (!_signInManager.IsSignedIn(User))
+                return RedirectToPage("/Account/Login",
+                    new { Area = "Identity" });
+
             return View();
         }
 
