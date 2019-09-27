@@ -1,1 +1,10 @@
-﻿
+﻿@model IEnumerable<VideoDTO>
+
+@foreach (var video in Model)
+{
+    <div class="card-body module-video">
+        <a href="~/Membership/Video/@video.Id" class="no-text-decoration">
+            @video.Title
+        </a>
+    </div>
+}
