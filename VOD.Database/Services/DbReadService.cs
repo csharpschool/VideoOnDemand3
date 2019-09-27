@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using VOD.Database.Contexts;
 
 namespace VOD.Database.Services
@@ -13,5 +15,9 @@ namespace VOD.Database.Services
             _db = db;
         }
 
+        public async Task<List<TEntity>> GetAsync<TEntity>() where TEntity : class
+        {
+            return await _db.Set<TEntity>().ToListAsync();
+        }
     }
 }
