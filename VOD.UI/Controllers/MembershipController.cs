@@ -24,7 +24,8 @@ namespace VOD.UI.Controllers
         UserManager<VODUser> userManager, IMapper mapper, IUIReadService db)
         {
             var user = httpContextAccessor.HttpContext.User;
-            _userId = userManager.GetUserId(user);
+            //_userId = userManager.GetUserId(user);
+            _userId = "123";
             _mapper = mapper;
             _db = db;
         }
@@ -32,6 +33,7 @@ namespace VOD.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
+            
             var courseDto = _mapper.Map<List<CourseDTO>>((await _db.GetCoursesAsync(_userId)).OrderBy(o => o.Title));
             var dashboardModel = new DashboardViewModel();
             dashboardModel.Courses = new List<List<CourseDTO>>();

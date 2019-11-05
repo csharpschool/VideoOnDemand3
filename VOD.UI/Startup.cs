@@ -40,7 +40,8 @@ namespace VOD.UI
             services.AddRazorPages();
 
             services.AddScoped<IDbReadService, DbReadService>();
-            services.AddScoped<IUIReadService, UIReadService>();
+            //services.AddScoped<IUIReadService, UIReadService>();
+            services.AddScoped<IUIReadService, UIMockService>();
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
