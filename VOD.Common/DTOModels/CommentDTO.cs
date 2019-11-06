@@ -8,7 +8,7 @@ namespace VOD.Common.DTOModels
     {
         public int? ParentId { get; set; } = null;
         public string Title { get; set; }
-        public string Text { get; set; }
+        public string Body { get; set; }
         public string AvatarUrl { get; set; }
 
         public List<CommentDTO> ChildComments { get; set; } = new List<CommentDTO>();

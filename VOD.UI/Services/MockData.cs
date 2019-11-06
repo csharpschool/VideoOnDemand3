@@ -35,8 +35,8 @@ namespace VOD.UI.Services
                 ParentId = null,
                 CourseId = 1,
                 Title = "Parent Comment 1",
-                Text = description.Substring(0, 100),
-                AvatarUrl = "some URL",
+                Body = description.Substring(0, 100),
+                AvatarUrl = "/images/avatar.png",
                 ParentComment = default
             };
             var parent2 = new Comment
@@ -45,8 +45,8 @@ namespace VOD.UI.Services
                 ParentId = null,
                 CourseId = 1,
                 Title = "Parent Comment 2",
-                Text = description.Substring(0, 100),
-                AvatarUrl = "some URL",
+                Body = description.Substring(0, 100),
+                AvatarUrl = "/images/avatar.png",
                 ParentComment = default
             };
 
@@ -57,8 +57,8 @@ namespace VOD.UI.Services
                 ParentId = 1,
                 CourseId = 1,
                 Title = "Child Comment 1",
-                Text = description.Substring(0, 100),
-                AvatarUrl = "some URL",
+                Body = description.Substring(0, 100),
+                AvatarUrl = "/images/avatar.png",
                 ParentComment = parent1
             };
             var child2 = new Comment
@@ -67,8 +67,8 @@ namespace VOD.UI.Services
                 ParentId = 1,
                 CourseId = 1,
                 Title = "Child Comment 2",
-                Text = description.Substring(0, 100),
-                AvatarUrl = "some URL",
+                Body = description.Substring(0, 100),
+                AvatarUrl = "/images/avatar.png",
                 ParentComment = parent1
             };
             var child3 = new Comment
@@ -77,8 +77,8 @@ namespace VOD.UI.Services
                 ParentId = 2,
                 CourseId = 1,
                 Title = "Child Comment 3",
-                Text = description.Substring(0, 100),
-                AvatarUrl = "some URL",
+                Body = description.Substring(0, 100),
+                AvatarUrl = "/images/avatar.png",
                 ParentComment = parent2
             };
             var child4 = new Comment
@@ -87,8 +87,8 @@ namespace VOD.UI.Services
                 ParentId = 2,
                 CourseId = 1,
                 Title = "Child Comment 4",
-                Text = description.Substring(0, 100),
-                AvatarUrl = "some URL",
+                Body = description.Substring(0, 100),
+                AvatarUrl = "/images/avatar.png",
                 ParentComment = parent2
             };
 
@@ -99,8 +99,8 @@ namespace VOD.UI.Services
                 ParentId = 3,
                 CourseId = 1,
                 Title = "Child Comment 5",
-                Text = description.Substring(0, 100),
-                AvatarUrl = "some URL",
+                Body = description.Substring(0, 100),
+                AvatarUrl = "/images/avatar.png",
                 ParentComment = child1
             };
 

@@ -16,71 +16,32 @@ namespace VOD.UI.TagHelpers
     {
         #region Properties
         public IEnumerable<CommentDTO> Data { get; set; } = new List<CommentDTO>();
+        private string MediaTag(string title, string body, string avatarUrl, string childClass = "") =>
+            $"<div class='media {childClass}'>" +
+            $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
+            $"<div class='media-body'>" +
+            $"<h5 class='mt-0'>{title}</h5>" +
+            $"{body}";
         #endregion
 
-        /*
-        <div class="media">
-            <img src="..." class="mr-3" alt="...">
-            <div class="media-body">
-                <h5 class="mt-0">Media heading</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-                <div class="media mt-3">
-                    <a class="mr-3" href="#">
-                        <img src="..." class="mr-3" alt="...">
-                    </a>
-                    <div class="media-body">
-                        <h5 class="mt-0">Media heading</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-                        <div class="media mt-3">
-                            <a class="mr-3" href="#">
-                                <img src="..." class="mr-3" alt="...">
-                            </a>
-                            <div class="media-body">
-                                <h5 class="mt-0">Media heading</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        */
         StringBuilder result = new StringBuilder();
         private string RecursiveComments(IEnumerable<CommentDTO> comments)
         {
             foreach (var parent in comments)
             {
-                result.Append(
-                    $"<div class='media'>" +
-                    $"<img src='/images/avatar.png' class='mr-3' alt='Avatar'>" +
-                    $"<div class='media-body'>" +
-                    $"<h5 class='mt-0'>{parent.Title}</h5>" +
-                    $"{parent.Text}");
-
-                //if (parent.ChildComments.Count > 0) result.Append("<div>");
+                result.Append(MediaTag(parent.Title, parent.Body, parent.AvatarUrl));
 
                 foreach (var child in parent.ChildComments)
                 {
-                    result.Append(
-                        $"<div class='media mt-3'>" +
-                        $"<img src='/images/avatar.png' class='mr-3' alt='Avatar'>" +
-                        $"<div class='media-body'>" +
-                        $"<h5 class='mt-0'>{child.Title}</h5>" +
-                        $"{child.Text}");
+                    result.Append(MediaTag(parent.Title, parent.Body, parent.AvatarUrl, "mt-3"));
+
                     if (child.ChildComments.Count > 0)
                     {
-                        //result.Append("<div>");
                         RecursiveComments(child.ChildComments);
-                        //result.Append("</div>");
                     }
                     result.Append("</div></div>");
                 }
 
-                //if (parent.ChildComments.Count > 0) result.Append("</div>");
                 result.Append("</div></div>");
             }
 
