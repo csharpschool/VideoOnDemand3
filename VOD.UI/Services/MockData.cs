@@ -24,10 +24,11 @@ namespace VOD.UI.Services
         private void SeedData()
         {
             #region Lorem Ipsum - Dummy Data
-            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
             #endregion
 
             #region Comments
+            var comment = description.Substring(0, 250);
             // Level 1
             var parent1 = new Comment
             {
@@ -35,7 +36,7 @@ namespace VOD.UI.Services
                 ParentId = null,
                 CourseId = 1,
                 Title = "Parent Comment 1",
-                Body = description.Substring(0, 100),
+                Body = comment,
                 AvatarUrl = "/images/avatar.png",
                 ParentComment = default
             };
@@ -45,7 +46,7 @@ namespace VOD.UI.Services
                 ParentId = null,
                 CourseId = 1,
                 Title = "Parent Comment 2",
-                Body = description.Substring(0, 100),
+                Body = comment,
                 AvatarUrl = "/images/avatar.png",
                 ParentComment = default
             };
@@ -57,7 +58,7 @@ namespace VOD.UI.Services
                 ParentId = 1,
                 CourseId = 1,
                 Title = "Child Comment 1",
-                Body = description.Substring(0, 100),
+                Body = comment,
                 AvatarUrl = "/images/avatar.png",
                 ParentComment = parent1
             };
@@ -67,7 +68,7 @@ namespace VOD.UI.Services
                 ParentId = 1,
                 CourseId = 1,
                 Title = "Child Comment 2",
-                Body = description.Substring(0, 100),
+                Body = comment,
                 AvatarUrl = "/images/avatar.png",
                 ParentComment = parent1
             };
@@ -77,7 +78,7 @@ namespace VOD.UI.Services
                 ParentId = 2,
                 CourseId = 1,
                 Title = "Child Comment 3",
-                Body = description.Substring(0, 100),
+                Body = comment,
                 AvatarUrl = "/images/avatar.png",
                 ParentComment = parent2
             };
@@ -87,7 +88,7 @@ namespace VOD.UI.Services
                 ParentId = 2,
                 CourseId = 1,
                 Title = "Child Comment 4",
-                Body = description.Substring(0, 100),
+                Body = comment,
                 AvatarUrl = "/images/avatar.png",
                 ParentComment = parent2
             };
@@ -99,7 +100,7 @@ namespace VOD.UI.Services
                 ParentId = 3,
                 CourseId = 1,
                 Title = "Child Comment 5",
-                Body = description.Substring(0, 100),
+                Body = comment,
                 AvatarUrl = "/images/avatar.png",
                 ParentComment = child1
             };
@@ -132,7 +133,7 @@ namespace VOD.UI.Services
                     Id = 1,
                     InstructorId = 1,
                     Title = "Course 1",
-                    Description = description,
+                    Description = description.Substring(0, 100),
                     ImageUrl = "/images/course1.jpg",
                     MarqueeImageUrl = "/images/laptop.jpg",
                     Comments = Comments
@@ -141,7 +142,7 @@ namespace VOD.UI.Services
                     Id = 2,
                     InstructorId = 2,
                     Title = "Course 2",
-                    Description = description,
+                    Description = description.Substring(0, 100),
                     ImageUrl = "/images/course2.jpg",
                     MarqueeImageUrl = "/images/laptop.jpg"
                 },
@@ -149,7 +150,7 @@ namespace VOD.UI.Services
                     Id = 3,
                     InstructorId = 1,
                     Title = "Course 3",
-                    Description = description,
+                    Description = description.Substring(0, 100),
                     ImageUrl = "/images/course3.jpg",
                     MarqueeImageUrl = "/images/laptop.jpg"
                 }};

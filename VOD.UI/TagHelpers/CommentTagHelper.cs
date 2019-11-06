@@ -16,29 +16,36 @@ namespace VOD.UI.TagHelpers
     {
         #region Properties
         public IEnumerable<CommentDTO> Data { get; set; } = new List<CommentDTO>();
-        private string MediaTag(string title, string body, string avatarUrl, string childClass = "") =>
-            $"<div class='media {childClass}'>" +
-            $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
-            $"<div class='media-body'>" +
-            $"<h5 class='mt-0'>{title}</h5>" +
-            $"{body}";
+        StringBuilder result = new StringBuilder();
         #endregion
 
-        StringBuilder result = new StringBuilder();
+        private string MediaTag(int id, string title, string body, string avatarUrl, int childCount, bool isChild = false)
+        {
+            string childClass = isChild ? "" : "mt-3";
+            string hasChildren = childCount == 0 ? "" : 
+                $"<span class='small font-italic' style='position:absolute; right:20px;'>({childCount} comments)</span>";
+            
+            return 
+                $"<div class='media {childClass}' style='margin-top:20px !important;' id='{id}'>" +
+                    $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
+                    $"<div class='media-body'>" +
+                    $"<h5 class='mt-0'>{title}{hasChildren}</h5>" +
+                    $"{body}";
+        }
+
         private string RecursiveComments(IEnumerable<CommentDTO> comments)
         {
             foreach (var parent in comments)
             {
-                result.Append(MediaTag(parent.Title, parent.Body, parent.AvatarUrl));
+                result.Append(MediaTag(parent.Id, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count));
 
                 foreach (var child in parent.ChildComments)
                 {
-                    result.Append(MediaTag(parent.Title, parent.Body, parent.AvatarUrl, "mt-3"));
+                    result.Append(MediaTag(child.Id, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count, true));
 
                     if (child.ChildComments.Count > 0)
-                    {
                         RecursiveComments(child.ChildComments);
-                    }
+
                     result.Append("</div></div>");
                 }
 

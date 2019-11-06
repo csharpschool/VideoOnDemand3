@@ -6,4 +6,9 @@ $(document).ready(function () {
     $('.module-card-header').on('click', function () {
         $(this).siblings('.module-video, .module-downloads').toggle();// Toggles display: none
     });
+
+    //$('#comments .media').on('click', function () {
+    //    $(this).children().toggle();// Toggles display: none
+    //});
+
 });
