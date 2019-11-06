@@ -23,17 +23,17 @@ namespace VOD.UI.TagHelpers
         {
             string childClass = isChild ? "" : "mt-3";
             string hasChildren = childCount == 0 ? "" : 
-                $"<span class='small font-italic' style='position:absolute; right:20px;'>({childCount} comments)</span>";
+                $"<span class='small font-italic' style='position:absolute; right:25px;'>({childCount} comments)</span>";
             
             return 
-                $"<div class='media {childClass}' style='margin-top:20px !important;' id='{id}'>" +
+                $"<div class='media {childClass}' style='margin-top:5px !important;' id='{id}'>" +
                     $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
                     $"<div class='media-body'>" +
                     $"<h5 class='mt-0'>{title}{hasChildren}</h5>" +
                     $"{body}";
         }
 
-        private string RecursiveComments(IEnumerable<CommentDTO> comments)
+        private string RecursiveMediaComments(IEnumerable<CommentDTO> comments)
         {
             foreach (var parent in comments)
             {
@@ -44,7 +44,7 @@ namespace VOD.UI.TagHelpers
                     result.Append(MediaTag(child.Id, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count, true));
 
                     if (child.ChildComments.Count > 0)
-                        RecursiveComments(child.ChildComments);
+                        RecursiveMediaComments(child.ChildComments);
 
                     result.Append("</div></div>");
                 }
@@ -54,32 +54,30 @@ namespace VOD.UI.TagHelpers
 
             return result.ToString();
         }
-        //private string RecursiveComments(IEnumerable<CommentDTO> comments)
-        //{
+        private string RecursiveComments(IEnumerable<CommentDTO> comments)
+        {
 
-        //    foreach (var parent in comments)
-        //    {
-        //        result.Append($"<li>{parent.Title}");
-        //        if (parent.ChildComments.Count > 0) result.Append("<ul>");
+            foreach (var parent in comments)
+            {
+                result.Append($"<li style='list-style-type: none;'>{MediaTag(parent.Id, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}</li>");
+                if (parent.ChildComments.Count > 0) result.Append("<ul>");
 
-        //        foreach (var child in parent.ChildComments)
-        //        {
-        //            result.Append($"<li>{child.Title}");
-        //            if (child.ChildComments.Count > 0)
-        //            {
-        //                result.Append("<ul>");
-        //                RecursiveComments(child.ChildComments);
-        //                result.Append("</ul>");
-        //            }
-        //            result.Append("</li>");
-        //        }
+                foreach (var child in parent.ChildComments)
+                {
+                    result.Append($"<li style='list-style-type: none;'>{MediaTag(child.Id, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}</li>");
+                    if (child.ChildComments.Count > 0)
+                    {
+                        result.Append("<ul>");
+                        RecursiveComments(child.ChildComments);
+                        result.Append("</ul>");
+                    }
+                }
 
-        //        if (parent.ChildComments.Count > 0) result.Append("</ul>");
-        //        result.Append("</li>");
-        //    }
+                if (parent.ChildComments.Count > 0) result.Append("</ul>");
+            }
 
-        //    return result.ToString();
-        //}
+            return result.ToString();
+        }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -90,8 +88,9 @@ namespace VOD.UI.TagHelpers
 
             // Changes <btn> tag to <a> tag when rendered
             var html = RecursiveComments(Data);
-            //output.TagName = "ul";
-            output.TagName = "div";
+            output.TagName = "ul";
+            //var html = RecursiveMediaComments(Data);
+            //output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Content.SetHtmlContent(html);
 
