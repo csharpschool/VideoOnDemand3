@@ -14,6 +14,7 @@ namespace VOD.UI.Services
         public List<Module> Modules;
         public List<Video> Videos;
         public List<Download> Downloads;
+        public List<Comment> Comments;
 
         public MockData()
         {
@@ -24,6 +25,93 @@ namespace VOD.UI.Services
         {
             #region Lorem Ipsum - Dummy Data
             string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+            #endregion
+
+            #region Comments
+            // Level 1
+            var parent1 = new Comment
+            {
+                Id = 1,
+                ParentId = null,
+                CourseId = 1,
+                Title = "Parent Comment 1",
+                Text = description.Substring(0, 100),
+                AvatarUrl = "some URL",
+                ParentComment = default
+            };
+            var parent2 = new Comment
+            {
+                Id = 2,
+                ParentId = null,
+                CourseId = 1,
+                Title = "Parent Comment 2",
+                Text = description.Substring(0, 100),
+                AvatarUrl = "some URL",
+                ParentComment = default
+            };
+
+            // Level 2
+            var child1 = new Comment
+            {
+                Id = 3,
+                ParentId = 1,
+                CourseId = 1,
+                Title = "Child Comment 1",
+                Text = description.Substring(0, 100),
+                AvatarUrl = "some URL",
+                ParentComment = parent1
+            };
+            var child2 = new Comment
+            {
+                Id = 4,
+                ParentId = 1,
+                CourseId = 1,
+                Title = "Child Comment 2",
+                Text = description.Substring(0, 100),
+                AvatarUrl = "some URL",
+                ParentComment = parent1
+            };
+            var child3 = new Comment
+            {
+                Id = 5,
+                ParentId = 2,
+                CourseId = 1,
+                Title = "Child Comment 3",
+                Text = description.Substring(0, 100),
+                AvatarUrl = "some URL",
+                ParentComment = parent2
+            };
+            var child4 = new Comment
+            {
+                Id = 6,
+                ParentId = 2,
+                CourseId = 1,
+                Title = "Child Comment 4",
+                Text = description.Substring(0, 100),
+                AvatarUrl = "some URL",
+                ParentComment = parent2
+            };
+
+             // Level 3
+            var child5 = new Comment
+            {
+                Id = 7,
+                ParentId = 3,
+                CourseId = 1,
+                Title = "Child Comment 5",
+                Text = description.Substring(0, 100),
+                AvatarUrl = "some URL",
+                ParentComment = child1
+            };
+
+
+            parent1.ChildComments.Add(child1);
+            parent1.ChildComments.Add(child2);
+            parent2.ChildComments.Add(child3);
+            parent2.ChildComments.Add(child4);
+            child1.ChildComments.Add(child5);
+
+            Comments = new List<Comment> { parent1, parent2, child1, child2, child3, child4, child5 };
             #endregion
 
             Instructors = new List<Instructor> {
@@ -46,7 +134,8 @@ namespace VOD.UI.Services
                     Title = "Course 1",
                     Description = description,
                     ImageUrl = "/images/course1.jpg",
-                    MarqueeImageUrl = "/images/laptop.jpg"
+                    MarqueeImageUrl = "/images/laptop.jpg",
+                    Comments = Comments
                 },
                 new Course {
                     Id = 2,
@@ -123,6 +212,7 @@ namespace VOD.UI.Services
                     Id = 3, ModuleId = 3, CourseId = 2,
                     Title = "ADO.NET 1 (PDF)", Url = "https://some-url" }
             };
+
         }
     }
 }

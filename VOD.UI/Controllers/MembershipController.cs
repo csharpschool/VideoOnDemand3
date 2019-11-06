@@ -55,12 +55,14 @@ namespace VOD.UI.Controllers
             var instructorDTO = _mapper.Map<InstructorDTO>(
                 course.Instructor);
             var moduleDTOs = _mapper.Map<List<ModuleDTO>>(course.Modules.OrderBy(o => o.Title));
+            var commentDTOs = _mapper.Map<List<CommentDTO>>(course.Comments.OrderBy(o => o.Id));
 
             var courseModel = new CourseViewModel
             {
                 Course = courseDTO,
                 Instructor = instructorDTO,
-                Modules = moduleDTOs
+                Modules = moduleDTOs,
+                Comments = commentDTOs.Where(c => c.ParentId == null)
             };
 
             return View(courseModel);

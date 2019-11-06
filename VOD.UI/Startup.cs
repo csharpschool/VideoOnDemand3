@@ -76,6 +76,9 @@ namespace VOD.UI
                 cfg.CreateMap<Module, ModuleDTO>()
                     .ForMember(dest => dest.ModuleTitle,
                         src => src.MapFrom(s => s.Title));
+
+                cfg.CreateMap<Comment, CommentDTO>();
+
             });
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);

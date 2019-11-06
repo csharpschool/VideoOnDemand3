@@ -34,11 +34,18 @@
 
 <div class="row">
     <div class="col-sm-9">
+        <comments data="@Model.Comments" />
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-9">
         @foreach (var module in Model.Modules)
         {
             <div class="card small-top-margin no-border-radius">
-                <div class="card-body">
-                    <h5>@module.ModuleTitle</h5>
+                <div class="module-card-header card-body">
+                    <h5>@module.ModuleTitle<span>(@module.Videos.Count videos)</span></h5>
+
                 </div>
                 <hr class="no-margin">
                 @if (module.Videos != null && module.Videos.Count > 0)
@@ -48,11 +55,7 @@
 
                 @if (module.Downloads != null && module.Downloads.Count > 0)
                 {
-                    <hr class="no-margin">
-                    <div class="card-body no-bottom-padding">
-                        <h5>Downloads</h5>
-                    </div>
-                    <div class="card-body no-top-padding">
+                    <div class="card-body no-top-padding module-downloads hide">
                         <partial name="_ModuleDownloadsPartial" model="@module.Downloads" />
                     </div>
                 }

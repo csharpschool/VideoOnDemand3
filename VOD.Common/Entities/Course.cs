@@ -21,5 +21,6 @@ namespace VOD.Common.Entities
         public int InstructorId { get; set; }
         public Instructor Instructor { get; set; }
         public List<Module> Modules { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

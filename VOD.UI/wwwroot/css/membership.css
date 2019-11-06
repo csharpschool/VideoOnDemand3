@@ -90,6 +90,11 @@
     margin-top: -5px;
 }
 
+.module-card-header span {
+    position: absolute;
+    right: 20px;
+}
+
 .card-body ul {
     list-style-type: none;
     margin: 0;
@@ -141,4 +146,8 @@
 .coming-up img {
     width: 100%;
     height: auto;
+}
+
+.hide {
+    display:none;
 }

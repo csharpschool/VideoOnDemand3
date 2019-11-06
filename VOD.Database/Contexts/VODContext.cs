@@ -31,6 +31,10 @@ namespace VOD.Database.Contexts
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            //builder.Entity<Comment>()
+            //    .HasMany(p => p.ChildComments)
+            //    .WithOne(p => p.ParentComment)
+            //    .HasForeignKey(p => p.ParentId);
         }
 
         private void SeedData(ModelBuilder builder)
