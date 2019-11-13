@@ -149,26 +149,32 @@
 }
 
 .hide {
-    display:none;
+    display: none;
 }
 
-#comments li:hover {
+/*#comments li > .media:hover {
     background-color: #5ab3ff;
-}
+}*/
 
 #comments .card-body > ul {
     padding-left: 0px;
 }
 
-#comments .card-body ul li {
-    padding-top: 2px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+#comments .media {
+    padding: 10px;
 }
 
+    #comments .media h5 > span {
+        position: absolute;
+        right: 30px;
+    }
 
-#comments .card-body > ul ul{
+    #comments .media h5 button {
+        padding: 0;
+        margin: 0;
+    }
+
+#comments .card-body > ul ul {
     padding-left: 80px;
 }
 
@@ -180,3 +186,13 @@
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
+#comments li {
+    list-style-type: none;
+    text-align: justify
+}
+
+    #comments li div button {
+        margin-bottom: 5px;
+        margin-left: 5px;
+    }

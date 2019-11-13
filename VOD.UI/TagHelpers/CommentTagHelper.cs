@@ -23,57 +23,39 @@ namespace VOD.UI.TagHelpers
         {
             string childClass = isChild ? "" : "mt-3";
             string hasChildren = childCount == 0 ? "" : 
-                $"<span class='small font-italic' style='position:absolute; right:25px;'>({childCount} comments)</span>";
+                $"<span class='small font-italic small-left-margin'>({childCount} comments)</span>";
             
             return 
-                $"<div class='media {childClass}' style='margin-top:5px !important;' id='{id}'>" +
+                $"<div class='media {childClass}' id='{id}'>" +
                     $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
                     $"<div class='media-body'>" +
-                    $"<h5 class='mt-0'>{title}{hasChildren}</h5>" +
-                    $"{body}";
+                    $"<h5 class='mt-0'>{title}" +
+                    $"<span><button class='btn btn-link'>Reply</button>{hasChildren}</h5></span>" +
+                    $"<div>{body}</div><div id='{id}' class='hide'><input style='width:93%;'/><button class='btn btn-success btn-sm'>Save</button></div></div></div>";
         }
 
-        private string RecursiveMediaComments(IEnumerable<CommentDTO> comments)
-        {
-            foreach (var parent in comments)
-            {
-                result.Append(MediaTag(parent.Id, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count));
-
-                foreach (var child in parent.ChildComments)
-                {
-                    result.Append(MediaTag(child.Id, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count, true));
-
-                    if (child.ChildComments.Count > 0)
-                        RecursiveMediaComments(child.ChildComments);
-
-                    result.Append("</div></div>");
-                }
-
-                result.Append("</div></div>");
-            }
-
-            return result.ToString();
-        }
         private string RecursiveComments(IEnumerable<CommentDTO> comments)
         {
 
             foreach (var parent in comments)
             {
-                result.Append($"<li style='list-style-type: none;'>{MediaTag(parent.Id, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}</li>");
+                result.Append($"<li>{MediaTag(parent.Id, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}");
                 if (parent.ChildComments.Count > 0) result.Append("<ul>");
 
                 foreach (var child in parent.ChildComments)
                 {
-                    result.Append($"<li style='list-style-type: none;'>{MediaTag(child.Id, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}</li>");
+                    result.Append($"<li>{MediaTag(child.Id, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}");
                     if (child.ChildComments.Count > 0)
                     {
                         result.Append("<ul>");
                         RecursiveComments(child.ChildComments);
                         result.Append("</ul>");
                     }
+                    result.Append("</li>");
                 }
 
                 if (parent.ChildComments.Count > 0) result.Append("</ul>");
+                result.Append("</li>");
             }
 
             return result.ToString();
