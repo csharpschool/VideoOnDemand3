@@ -23,15 +23,16 @@ namespace VOD.UI.TagHelpers
         {
             string childClass = isChild ? "" : "mt-3";
             string hasChildren = childCount == 0 ? "" : 
-                $"<span class='small font-italic small-left-margin'>({childCount} comments)</span>";
+                //$"<span class='small font-italic small-left-margin'>({childCount} comments)</span>";
+                $"<button class='btn btn-link media-replies font-italic small-left-margin'>({childCount} comments)</button>";
             
             return 
                 $"<div class='media {childClass}' id='{id}'>" +
                     $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
                     $"<div class='media-body'>" +
                     $"<h5 class='mt-0'>{title}" +
-                    $"<span><button class='btn btn-link'>Reply</button>{hasChildren}</h5></span>" +
-                    $"<div>{body}</div><div id='{id}' class='hide'><input style='width:93%;'/><button class='btn btn-success btn-sm'>Save</button></div></div></div>";
+                    $"<span><button class='btn btn-link media-reply'>Reply</button>{hasChildren}</h5></span>" +
+                    $"<div>{body}</div><div class='hide media-input'><input class='media-comment-input' style='width:93%;'/><button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></div></div></div>";
         }
 
         private string RecursiveComments(IEnumerable<CommentDTO> comments)
