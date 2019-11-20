@@ -108,6 +108,29 @@ namespace VOD.UI.Services
 
             return video;
         }
+        public async Task<Comment> GetCommentAsync(int commentId)
+        {
+            var comment = await Task.Run(() => {
+                var comment = _db.Comments.Single(v => v.Id.Equals(commentId));
+                if (comment == null) return default;
+
+                return comment;
+            });
+
+            return comment;
+        }
+
+        public async Task<IEnumerable<Comment>> GetCommentsAsync(int courseId)
+        {
+            var comments = await Task.Run(() => {
+                var comments = _db.Comments.Where(c => c.CourseId.Equals(courseId));
+                if (comments == null) return default;
+
+                return comments;
+            });
+
+            return comments;
+        }
         #endregion
 
     }

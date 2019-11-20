@@ -11,29 +11,77 @@ $(document).ready(function () {
         e.stopPropagation();
         let li = $(this).parent().parent().parent().parent().parent();
         li.children('ul').toggle();
-        //$(this).children('ul').toggle();
-        console.log(this);
-        //console.log(.html());
     });
 
     $('#comments li button.media-reply').on('click', function (e) {
         e.stopPropagation();
         $(this).parent().parent().siblings('.media-input').toggle();
-        //let id = $(this).attr('id');
-        console.log('reply');
     });
 
     $('#comments li button.media-save').on('click', function (e) {
         e.stopPropagation();
         let button = $(this);
-        let input = button.siblings('input');
-        let text = input.val();
-        let id = button.attr('id');
+        let inputTitle = button.siblings('input.media-comment-input-title');
+        let inputBody = button.siblings('input.media-comment-input-body');
+        let title = inputTitle.val();
+        let body = inputBody.val();
+        let parentId = button.attr('id');
+        let antiforegry = $('[name="__RequestVerificationToken"]').val();
+        console.log(title, body, parentId, antiforegry);
 
-        console.log('save', text, id);
+        /* MAKE AJAX CALL TO BACKEND ACTION */
+        //$.ajax("api/comments/", { method: "post" })
+        //    .then(function () {
+        //    });
+
+        //$.post("/api/comments/", { parentId, title, body, __RequestVerificationToken: antiforegry })
+        //    .done(function (data) {
+        //        alert("Data Loaded: " + data);
+        //    });
+
+        //$.ajax({
+        //    type: 'post',
+        //    url: '/api/comments/',
+        //    data: { parentId, title, body, __RequestVerificationToken: antiforegry },
+        //    contentType: 'application/json'
+        //}).then(function (data) {
+        //    alert("Data Loaded: " + data);
+        //});
+
+        //$.post("/api/comments/", { parentId, title, body, __RequestVerificationToken: antiforegry },
+        //    function (data) {
+        //        alert("Data Loaded: " + data);
+        //    }).fail(function (xhr, status, error) { alert("Error: " + error); });
+
+
+
+        //$.ajax("/api/comments/", { method: "get" })
+        //    .then(function (response) {
+        //        console.dir(response);
+        //});
+
+        $.ajax({
+            method: "POST",
+            url: "/api/comments/",
+            //data: { parentId: parentId, title: title, body: body },
+            data: {
+                "parentId": 7,
+                "title": "Title 1",
+                "body": "Body 1" },
+            //headers:
+            //{
+            //    "RequestVerificationToken": antiforegry
+            //},
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json'
+        })
+            .done(function (msg) {
+                alert("Data Saved: " + msg);
+            });
 
         button.parent().toggle();
-        input.val("");
+        inputBody.val("");
+        inputTitle.val("");
     });
 
 });

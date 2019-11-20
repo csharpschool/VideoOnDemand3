@@ -170,7 +170,7 @@
         right: 30px;
     }
 
-    /*#comments .media h5 button {
+/*#comments .media h5 button {
         padding: 0;
         margin: 0;
     }*/
@@ -196,11 +196,12 @@
     #comments li div button {
         margin-bottom: 6px;
         margin-left: 6px;
-        border-radius:0px;
+        border-radius: 0px;
     }
 
     #comments li div.media-input {
-        margin-top: 5px;      
+        margin-top: 5px;
+        width: 100%;
     }
 
 #comments .media h5 button.btn-link {
@@ -208,4 +209,21 @@
     padding: 0;
     margin: 0;
     margin-left: 6px;
+}
+
+#comments li div.media-input ul {
+    padding-left: 0px;
+    margin-bottom: 35px;
+}
+
+    #comments li div.media-input ul li {
+        margin-bottom: 10px;
+    }
+
+#comments li div input.media-comment-input-title, 
+#comments li div input.media-comment-input-body, 
+#comments li div button.media-save {
+    position: absolute;
+    right: 30px;
+    width: 75%;
 }

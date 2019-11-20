@@ -31,8 +31,17 @@ namespace VOD.UI.TagHelpers
                     $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
                     $"<div class='media-body'>" +
                     $"<h5 class='mt-0'>{title}" +
-                    $"<span><button class='btn btn-link media-reply'>Reply</button>{hasChildren}</h5></span>" +
-                    $"<div>{body}</div><div class='hide media-input'><input class='media-comment-input' style='width:93%;'/><button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></div></div></div>";
+                    $"<span><button class='btn btn-link media-reply'>Reply</button>{hasChildren}</span></h5>" +
+                    $"<div>{body}</div>" +
+                    $"<div class='hide media-input'><ul>" +
+                        $"<li><span>Title:</span><input class='media-comment-input-title'/></li>" +
+                        $"<li><span>Body:</span><input class='media-comment-input-body'/></li>" +
+                        $"<li><button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></li>" +
+
+                    //$"<span>Title:<input class='media-comment-input-title'/></span>" +
+                    //$"<span>Body: <input class='media-comment-input-body'/>" +
+                    //$"<button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></span>" +
+                    $"</ul></div></div></div>";
         }
 
         private string RecursiveComments(IEnumerable<CommentDTO> comments)

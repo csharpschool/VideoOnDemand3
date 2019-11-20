@@ -12,5 +12,7 @@ namespace VOD.UI.Services
         Task<Course> GetCourseAsync(string userId, int courseId);
         Task<IEnumerable<Video>> GetVideosAsync(string userId, int moduleId = default(int));
         Task<Video> GetVideoAsync(string userId, int videoId);
+        Task<Comment> GetCommentAsync(int commentId);
+        Task<IEnumerable<Comment>> GetCommentsAsync(int courseId);
     }
 }

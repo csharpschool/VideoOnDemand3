@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Course";
 }
-
+@Html.AntiForgeryToken()
 <div class="row small-bottom-margin">
     <div class="col-sm-12">
         <a class="btn btn-primary no-border-radius no-left-padding"
@@ -49,7 +49,6 @@
                 <comments data="@Model.Comments" />
             </div>
         </div>
-
     </div>
 </div>
 

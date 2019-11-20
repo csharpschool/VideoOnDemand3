@@ -11,6 +11,7 @@ namespace VOD.Common.Entities
         public int Id { get; set; }
         public int? ParentId { get; set; } = null;
         public int CourseId { get; set; }
+        public string UserId { get; set; }
 
         [MaxLength(80), Required]
         public string Title { get; set; }
