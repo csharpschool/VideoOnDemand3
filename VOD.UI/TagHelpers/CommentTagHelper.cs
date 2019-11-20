@@ -23,7 +23,6 @@ namespace VOD.UI.TagHelpers
         {
             string childClass = isChild ? "" : "mt-3";
             string hasChildren = childCount == 0 ? "" : 
-                //$"<span class='small font-italic small-left-margin'>({childCount} comments)</span>";
                 $"<button class='btn btn-link media-replies font-italic small-left-margin'>({childCount} comments)</button>";
             
             return 
@@ -37,16 +36,11 @@ namespace VOD.UI.TagHelpers
                         $"<li><span>Title:</span><input class='media-comment-input-title'/></li>" +
                         $"<li><span>Body:</span><input class='media-comment-input-body'/></li>" +
                         $"<li><button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></li>" +
-
-                    //$"<span>Title:<input class='media-comment-input-title'/></span>" +
-                    //$"<span>Body: <input class='media-comment-input-body'/>" +
-                    //$"<button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></span>" +
                     $"</ul></div></div></div>";
         }
 
         private string RecursiveComments(IEnumerable<CommentDTO> comments)
         {
-
             foreach (var parent in comments)
             {
                 result.Append($"<li>{MediaTag(parent.Id, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}");
@@ -78,11 +72,10 @@ namespace VOD.UI.TagHelpers
             if (output == null)
                 throw new ArgumentNullException(nameof(output));
 
-            // Changes <btn> tag to <a> tag when rendered
+            // Creates comments recursively as parent/child
             var html = RecursiveComments(Data);
+
             output.TagName = "ul";
-            //var html = RecursiveMediaComments(Data);
-            //output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Content.SetHtmlContent(html);
 

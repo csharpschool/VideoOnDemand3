@@ -45,9 +45,11 @@
                     </ul>
                 </nav>
             </div>
-            <div class="card-body">
+            @*<div class="card-body">
                 <comments data="@Model.Comments" />
-            </div>
+            </div>*@
+
+            <partial name="_CommentsPartial" model="@Model.Comments" />
         </div>
     </div>
 </div>

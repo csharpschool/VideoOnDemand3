@@ -21,8 +21,8 @@ $(document).ready(function () {
     $('#comments li button.media-save').on('click', function (e) {
         e.stopPropagation();
         let button = $(this);
-        let inputTitle = button.siblings('input.media-comment-input-title');
-        let inputBody = button.siblings('input.media-comment-input-body');
+        let inputTitle = $('input.media-comment-input-title');
+        let inputBody = $('input.media-comment-input-body');
         let title = inputTitle.val();
         let body = inputBody.val();
         let parentId = button.attr('id');
@@ -79,7 +79,7 @@ $(document).ready(function () {
                 alert("Data Saved: " + msg);
             });
 
-        button.parent().toggle();
+        button.parent().parent().parent().toggle();
         inputBody.val("");
         inputTitle.val("");
     });
