@@ -193,11 +193,10 @@
     text-align: justify;
 }
 
-    #comments li div button {
+    /*#comments li div button {
         margin-bottom: 6px;
         margin-left: 6px;
-        border-radius: 0px;
-    }
+    }*/
 
     #comments li div.media-input {
         margin-top: 5px;
@@ -220,10 +219,19 @@
         margin-bottom: 10px;
     }
 
-#comments li div input.media-comment-input-title, 
-#comments li div input.media-comment-input-body, 
-#comments li div button.media-save {
-    position: absolute;
-    right: 30px;
-    width: 75%;
+#comments input.media-comment-input-title,
+#comments input.media-comment-input-body,
+#comments button.media-save {
+    width: 100%;
+    margin-left: 0px;
+    border-radius: 0px;
+}
+
+#top-comment-form button,
+#top-comment-form input {
+    margin:2px;
+}
+
+#top-comment-form {
+    padding: 5px;
 }

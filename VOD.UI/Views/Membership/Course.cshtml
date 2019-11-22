@@ -34,9 +34,6 @@
 
 <div class="row">
     <div class="col-sm-12">
-
-
-
         <div id="comments" class="card small-top-margin no-border-radius">
             <div class="card-header">
                 <h5>Comments</h5>
@@ -48,18 +45,13 @@
                     </ul>
                 </nav>
             </div>
-            @*<div class="card-body">
-            <comments data="@Model.Comments" />
-        </div>*@
 
-        <form method="post" action="/Membership/AddComment" data-ajax="true" data-ajax-method="post" data-ajax-update="#comments-partial">
-            <input type="hidden" name="ParentId" value="2">
-            <input type="hidden" name="CourseId" value="1">
-            <input name="Body" placeholder="Body">
-            <input name="Title" placeholder="Title">
-
-            <button type="submit" class="btn btn-danger">Comment</button>
-        </form>
+            <form id="top-comment-form" method="post" action="/Membership/AddComment" data-ajax="true" data-ajax-method="post" data-ajax-update="#comments-partial" data-ajax-success="topCommentFormSuccess">
+                <input type="hidden" name="CourseId" value="@Model.Course.CourseId">
+                <input name="Title" placeholder="Title" class='media-comment-input-title'>
+                <input name="Body" placeholder="Body" class='media-comment-input-body'>
+                <button type="submit" class="btn btn-success btn-sm media-save">Comment</button>
+            </form>
 
             <div id="comments-partial">
                 <partial name="_CommentsPartial" model="@Model.Comments" />

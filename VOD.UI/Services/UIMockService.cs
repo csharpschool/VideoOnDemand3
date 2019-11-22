@@ -136,7 +136,6 @@ namespace VOD.UI.Services
 
             return comments;
         }
-
         public async Task AddCommentAsync(Comment comment)
         {
             try
@@ -149,10 +148,7 @@ namespace VOD.UI.Services
                 comment.Date = DateTime.Now;
                 _db.Comments.Add(comment);
 
-                if (comment.ParentId == null)
-                {
-                    return;
-                }
+                if (comment.ParentId == null) return;
 
                 var parentComment = await GetCommentAsync((int)comment.ParentId);
                 comment.ParentComment = parentComment;

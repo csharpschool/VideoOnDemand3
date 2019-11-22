@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using VOD.Common.DTOModels;
-using VOD.Common.Entities;
+using VOD.Common.Extensions;
 
 namespace VOD.UI.TagHelpers
 {
@@ -24,55 +19,28 @@ namespace VOD.UI.TagHelpers
         StringBuilder result = new StringBuilder();
         private readonly IHtmlHelper html;
 
+        // Needed for rendering a partial view
         [HtmlAttributeNotBound]
         [ViewContext]
         public ViewContext ViewContext { get; set; }
         #endregion
 
+        // Needed for rendering a partial view
         public CommentTagHelper(IHtmlHelper htmlHelper)
         {
             html = htmlHelper;
-        }
-
-        private string MediaTag(int id, int courseId, string title, string body, string avatarUrl, int childCount, bool isChild = false)
-        {
-            string childClass = isChild ? "" : "mt-3";
-            string hasChildren = childCount == 0 ? "" : 
-                $"<button class='btn btn-link media-replies font-italic small-left-margin'>({childCount} comments)</button>";
-            
-            return 
-                $"<div class='media {childClass}' id='{id}'>" +
-                    $"<img src='{avatarUrl}' class='mr-3' alt='Avatar'>" +
-                    $"<div class='media-body'>" +
-                    $"<h5 class='mt-0'>{title}" +
-                    $"<span><button class='btn btn-link media-reply'>Reply</button>{hasChildren}</span></h5>" +
-                    $"<div>{body}</div>" +
-                    $"<div class='hide media-input'>" +
-                    $"<form action='/Membership/CreateComment' data-ajax='true' data-ajax-update='#comments'>" +
-                        $"<input type='hidden' id='parentId' value='{id}'/>" +
-                        $"<input type='hidden' id='courseId' value='{courseId}'/>" +
-                        $"<ul>" +
-                            $"<li><span>Title:</span><input class='media-comment-input-title'/></li>" +
-                            $"<li><span>Body:</span><input class='media-comment-input-body'/></li>" +
-                            $"<li><button type='submit' class='btn btn-success btn-sm media-save'>Save</button></li>" +
-                        $"</ul>" +
-                    $"</form>" +
-                    $"</div></div></div>";
         }
 
         private async Task<string> RecursiveComments(IEnumerable<CommentDTO> comments)
         {
             foreach (var parent in comments)
             {
-                //await html.PartialAsync("", parent);
-                //result.Append($"<li>{MediaTag(parent.Id, parent.CourseId, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}");
                 var parentMediaHtml = await html.PartialAsync("_MediaPartial", parent);
                 result.Append($"<li>{parentMediaHtml.ToHtml()}");
                 if (parent.ChildComments.Count > 0) result.Append("<ul>");
 
                 foreach (var child in parent.ChildComments)
                 {
-                    //result.Append($"<li>{MediaTag(child.Id, child.CourseId, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}");
                     var childMediaHtml = await html.PartialAsync("_MediaPartial", child);
                     result.Append($"<li>{childMediaHtml.ToHtml()}");
                     if (child.ChildComments.Count > 0)
@@ -109,19 +77,6 @@ namespace VOD.UI.TagHelpers
             output.Content.SetHtmlContent(htmlOutput);
 
             base.Process(context, output);
-
-        }
-    }
-
-    public static class HtmlExtensions 
-    {
-        public static string ToHtml(this IHtmlContent content)
-        {
-            using (var writer = new StringWriter())
-            {
-                content.WriteTo(writer, HtmlEncoder.Default);
-                return writer.ToString();
-            }
         }
     }
 }
