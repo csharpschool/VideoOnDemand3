@@ -7,13 +7,15 @@ $(document).ready(function () {
         $(this).siblings('.module-video, .module-downloads').toggle();// Toggles display: none
     });
 
-    $('#comments li button.media-replies').on('click', function (e) {
+    $('#comments li').on('click', 'button.media-replies', function (e) {
+        console.log('clicked');
         e.stopPropagation();
         let li = $(this).parent().parent().parent().parent().parent();
         li.children('ul').toggle();
     });
 
-    $('#comments li button.media-reply').on('click', function (e) {
+    $('#comments li').on('click', 'button.media-reply', function (e) {
+        console.log('clicked');
         e.stopPropagation();
         $(this).parent().parent().siblings('.media-input').toggle();
     });

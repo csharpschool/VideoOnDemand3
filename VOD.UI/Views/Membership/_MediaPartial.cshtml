@@ -1,0 +1,30 @@
+﻿@model CommentDTO
+
+<div class='media'>
+    <img src='@Model.AvatarUrl' class='mr-3' alt='Avatar'>
+    <div class='media-body'>
+        <h5 class='mt-0'>
+            @Model.Title
+            <span>
+                <button class='btn btn-link media-reply'>Reply</button>
+                @if (Model.ChildComments.Count > 0)
+                {
+                    <button class='btn btn-link media-replies font-italic small-left-margin'>(@Model.ChildComments.Count comments)</button>
+                }
+            </span>
+        </h5>
+        <div>@Model.Body</div>
+        <div class='hide media-input'>
+            <form method="post" action="/Membership/AddComment" data-ajax="true" data-ajax-method="post" data-ajax-update="#comments-partial">
+                <input type='hidden' name='ParentId' value='@Model.Id' />
+                <input type='hidden' name='CourseId' value='@Model.CourseId' />
+                <ul>
+                    <li><span>Title:</span><input name="Title" placeholder="Title" class='media-comment-input-title' /></li>
+                    <li><span>Body:</span><input name="Body" placeholder="Body" class='media-comment-input-body' /></li>
+                    <li><button type='submit' class='btn btn-success btn-sm media-save'>Save</button></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+

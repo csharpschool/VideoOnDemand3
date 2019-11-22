@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using VOD.Common.DTOModels;
@@ -17,7 +22,17 @@ namespace VOD.UI.TagHelpers
         #region Properties
         public IEnumerable<CommentDTO> Data { get; set; } = new List<CommentDTO>();
         StringBuilder result = new StringBuilder();
+        private readonly IHtmlHelper html;
+
+        [HtmlAttributeNotBound]
+        [ViewContext]
+        public ViewContext ViewContext { get; set; }
         #endregion
+
+        public CommentTagHelper(IHtmlHelper htmlHelper)
+        {
+            html = htmlHelper;
+        }
 
         private string MediaTag(int id, int courseId, string title, string body, string avatarUrl, int childCount, bool isChild = false)
         {
@@ -43,37 +58,27 @@ namespace VOD.UI.TagHelpers
                         $"</ul>" +
                     $"</form>" +
                     $"</div></div></div>";
-
-            //$"<div>{body}</div>" +
-            //$"<div class='hide media-input'><ul>" +
-            //    $"<li><span>Title:</span><input class='media-comment-input-title'/></li>" +
-            //    $"<li><span>Body:</span><input class='media-comment-input-body'/></li>" +
-            //    $"<li><button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></li>" +
-            //$"</ul></div></div></div>";
-
-            /*
-                <form asp-action="Delete" asp-route-id="@customer.Id" data-ajax="true" data-ajax-update="#CustomerList">
-                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
-                        Delete
-                    </button>
-                </form>
-             */
         }
 
-        private string RecursiveComments(IEnumerable<CommentDTO> comments)
+        private async Task<string> RecursiveComments(IEnumerable<CommentDTO> comments)
         {
             foreach (var parent in comments)
             {
-                result.Append($"<li>{MediaTag(parent.Id, parent.CourseId, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}");
+                //await html.PartialAsync("", parent);
+                //result.Append($"<li>{MediaTag(parent.Id, parent.CourseId, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}");
+                var parentMediaHtml = await html.PartialAsync("_MediaPartial", parent);
+                result.Append($"<li>{parentMediaHtml.ToHtml()}");
                 if (parent.ChildComments.Count > 0) result.Append("<ul>");
 
                 foreach (var child in parent.ChildComments)
                 {
-                    result.Append($"<li>{MediaTag(child.Id, child.CourseId, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}");
+                    //result.Append($"<li>{MediaTag(child.Id, child.CourseId, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}");
+                    var childMediaHtml = await html.PartialAsync("_MediaPartial", child);
+                    result.Append($"<li>{childMediaHtml.ToHtml()}");
                     if (child.ChildComments.Count > 0)
                     {
                         result.Append("<ul>");
-                        RecursiveComments(child.ChildComments);
+                        await RecursiveComments(child.ChildComments);
                         result.Append("</ul>");
                     }
                     result.Append("</li>");
@@ -86,22 +91,37 @@ namespace VOD.UI.TagHelpers
             return result.ToString();
         }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        public async override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
             if (output == null)
                 throw new ArgumentNullException(nameof(output));
 
+            // Needed for rendering a partial view
+            (html as IViewContextAware).Contextualize(ViewContext);
+
             // Creates comments recursively as parent/child
-            var html = RecursiveComments(Data);
+            var htmlOutput = await RecursiveComments(Data);
 
             output.TagName = "ul";
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Content.SetHtmlContent(html);
+            output.Content.SetHtmlContent(htmlOutput);
 
             base.Process(context, output);
 
+        }
+    }
+
+    public static class HtmlExtensions 
+    {
+        public static string ToHtml(this IHtmlContent content)
+        {
+            using (var writer = new StringWriter())
+            {
+                content.WriteTo(writer, HtmlEncoder.Default);
+                return writer.ToString();
+            }
         }
     }
 }

@@ -147,10 +147,10 @@ namespace VOD.UI.Services
                 // *** End ***
 
                 comment.Date = DateTime.Now;
+                _db.Comments.Add(comment);
 
                 if (comment.ParentId == null)
                 {
-                    _db.Comments.Add(comment);
                     return;
                 }
 

@@ -3,3 +3,6 @@
 <div class="card-body">
     <comments data="@Model" />
 </div>
+
+@*Needs to be reloaded because the script sections aren't loaded when a partial view is rendered.*@ 
+<script src="~/js/site.js" asp-append-version="true"></script>
