@@ -39,7 +39,8 @@ namespace VOD.UI.Services
                 Title = "Parent Comment 1",
                 Body = comment,
                 AvatarUrl = "/images/avatar.png",
-                ParentComment = default
+                ParentComment = default,
+                Date = DateTime.Now.AddDays(-1)
             };
             var parent2 = new Comment
             {
@@ -50,7 +51,8 @@ namespace VOD.UI.Services
                 Title = "Parent Comment 2",
                 Body = comment,
                 AvatarUrl = "/images/avatar.png",
-                ParentComment = default
+                ParentComment = default,
+                Date = DateTime.Now.AddDays(-1)
             };
 
             // Level 2
@@ -63,7 +65,8 @@ namespace VOD.UI.Services
                 Title = "Child Comment 1",
                 Body = comment,
                 AvatarUrl = "/images/avatar.png",
-                ParentComment = parent1
+                ParentComment = parent1,
+                Date = DateTime.Now.AddDays(-1)
             };
             var child2 = new Comment
             {
@@ -74,7 +77,8 @@ namespace VOD.UI.Services
                 Title = "Child Comment 2",
                 Body = comment,
                 AvatarUrl = "/images/avatar.png",
-                ParentComment = parent1
+                ParentComment = parent1,
+                Date = DateTime.Now.AddDays(-1)
             };
             var child3 = new Comment
             {
@@ -85,7 +89,8 @@ namespace VOD.UI.Services
                 Title = "Child Comment 3",
                 Body = comment,
                 AvatarUrl = "/images/avatar.png",
-                ParentComment = parent2
+                ParentComment = parent2,
+                Date = DateTime.Now.AddDays(-1)
             };
             var child4 = new Comment
             {
@@ -96,7 +101,8 @@ namespace VOD.UI.Services
                 Title = "Child Comment 4",
                 Body = comment,
                 AvatarUrl = "/images/avatar.png",
-                ParentComment = parent2
+                ParentComment = parent2,
+                Date = DateTime.Now.AddDays(-1)
             };
 
              // Level 3
@@ -109,7 +115,8 @@ namespace VOD.UI.Services
                 Title = "Child Comment 5",
                 Body = comment,
                 AvatarUrl = "/images/avatar.png",
-                ParentComment = child1
+                ParentComment = child1,
+                Date = DateTime.Now.AddDays(-1)
             };
 
 

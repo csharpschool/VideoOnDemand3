@@ -52,7 +52,7 @@
             <comments data="@Model.Comments" />
         </div>*@
 
-        <form method="post" action="/Membership/ReplyToComment" data-ajax="true" data-ajax-method="post" data-ajax-update="#comments-partial">
+        <form method="post" action="/Membership/AddComment" data-ajax="true" data-ajax-method="post" data-ajax-update="#comments-partial">
             <input type="hidden" name="ParentId" value="2">
             <input type="hidden" name="CourseId" value="1">
             <input name="Body" placeholder="Body">

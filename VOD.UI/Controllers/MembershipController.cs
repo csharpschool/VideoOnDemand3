@@ -111,31 +111,18 @@ namespace VOD.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReplyToComment(CommentDTO commentDTO)
+        public async Task<IActionResult> AddComment(CommentDTO commentDTO)
         {
-            //var parentComment = await _db.GetCommentAsync((int)commentDTO.ParentId);
-            //commentDTO.CourseId = parentComment.CourseId;
-            //commentDTO.Id = new Random().Next(100, int.MaxValue);
-
-            //// Should already be in the DTO
-            //commentDTO.AvatarUrl = "/images/avatar.png";
-            //// End
-
             var comment = _mapper.Map<Comment>(commentDTO);
             comment.UserId = _userId;
             comment.AvatarUrl = "/images/avatar.png";
 
-            //comment.ParentComment = parentComment;
-
-            //parentComment.ChildComments.Add(comment);
             await _db.AddCommentAsync(comment);
 
             var comments = await _db.GetCommentsAsync(comment.CourseId);
-            var commentDTOs = _mapper.Map<List<CommentDTO>>(comments.OrderBy(o => o.Id)).Where(c => c.ParentId == null);
+            var commentDTOs = _mapper.Map<List<CommentDTO>>(comments.OrderBy(o => o.Date)).Where(c => c.ParentId == null);
             
             return PartialView("_CommentsPartial", commentDTOs);
         }
-
-
     }
 }

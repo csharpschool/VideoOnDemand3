@@ -141,22 +141,27 @@ namespace VOD.UI.Services
         {
             try
             {
-                var parentComment = await GetCommentAsync((int)comment.ParentId);
+                // *** Only for Test ***
                 comment.Id = new Random().Next(100, int.MaxValue);
-
-                // Should already be in the DTO
                 comment.AvatarUrl = "/images/avatar.png";
-                // End
+                // *** End ***
 
+                comment.Date = DateTime.Now;
+
+                if (comment.ParentId == null)
+                {
+                    _db.Comments.Add(comment);
+                    return;
+                }
+
+                var parentComment = await GetCommentAsync((int)comment.ParentId);
                 comment.ParentComment = parentComment;
                 parentComment.ChildComments.Add(comment);
-                //_db.Comments.Add(comment);
             }
             catch
             {
                 throw;
             }
-
         }
 
         #endregion

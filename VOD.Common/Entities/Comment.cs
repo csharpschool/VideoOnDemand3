@@ -22,6 +22,9 @@ namespace VOD.Common.Entities
         [MaxLength(1024)]
         public string AvatarUrl { get; set; }
 
+        [Required]
+        public DateTime Date { get; set; }
+
         public Comment ParentComment { get; set; } = default;
         public List<Comment> ChildComments { get; set; } = new List<Comment>();
     }
