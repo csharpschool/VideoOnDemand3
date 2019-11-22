@@ -18,7 +18,7 @@ $(document).ready(function () {
         $(this).parent().parent().siblings('.media-input').toggle();
     });
 
-    $('#comments li button.media-save').on('click', function (e) {
+   /* $('#comments li button.media-save').on('click', function (e) {
         e.stopPropagation();
         let button = $(this);
         let inputTitle = $('input.media-comment-input-title');
@@ -29,7 +29,7 @@ $(document).ready(function () {
         let antiforegry = $('[name="__RequestVerificationToken"]').val();
         console.log(title, body, parentId, antiforegry);
 
-        /* MAKE AJAX CALL TO BACKEND ACTION */
+        // MAKE AJAX CALL TO BACKEND ACTION 
         //$.ajax("api/comments/", { method: "post" })
         //    .then(function () {
         //    });
@@ -82,6 +82,6 @@ $(document).ready(function () {
         button.parent().parent().parent().toggle();
         inputBody.val("");
         inputTitle.val("");
-    });
+    });*/
 
 });

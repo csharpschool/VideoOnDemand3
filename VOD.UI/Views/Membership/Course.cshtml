@@ -34,6 +34,9 @@
 
 <div class="row">
     <div class="col-sm-12">
+
+
+
         <div id="comments" class="card small-top-margin no-border-radius">
             <div class="card-header">
                 <h5>Comments</h5>
@@ -46,10 +49,21 @@
                 </nav>
             </div>
             @*<div class="card-body">
-                <comments data="@Model.Comments" />
-            </div>*@
+            <comments data="@Model.Comments" />
+        </div>*@
 
-            <partial name="_CommentsPartial" model="@Model.Comments" />
+        <form method="post" action="/Membership/ReplyToComment" data-ajax="true" data-ajax-method="post" data-ajax-update="#comments-partial">
+            <input type="hidden" name="ParentId" value="2">
+            <input type="hidden" name="CourseId" value="1">
+            <input name="Body" placeholder="Body">
+            <input name="Title" placeholder="Title">
+
+            <button type="submit" class="btn btn-danger">Comment</button>
+        </form>
+
+            <div id="comments-partial">
+                <partial name="_CommentsPartial" model="@Model.Comments" />
+            </div>
         </div>
     </div>
 </div>

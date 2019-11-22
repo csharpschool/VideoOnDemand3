@@ -19,7 +19,7 @@ namespace VOD.UI.TagHelpers
         StringBuilder result = new StringBuilder();
         #endregion
 
-        private string MediaTag(int id, string title, string body, string avatarUrl, int childCount, bool isChild = false)
+        private string MediaTag(int id, int courseId, string title, string body, string avatarUrl, int childCount, bool isChild = false)
         {
             string childClass = isChild ? "" : "mt-3";
             string hasChildren = childCount == 0 ? "" : 
@@ -32,23 +32,44 @@ namespace VOD.UI.TagHelpers
                     $"<h5 class='mt-0'>{title}" +
                     $"<span><button class='btn btn-link media-reply'>Reply</button>{hasChildren}</span></h5>" +
                     $"<div>{body}</div>" +
-                    $"<div class='hide media-input'><ul>" +
-                        $"<li><span>Title:</span><input class='media-comment-input-title'/></li>" +
-                        $"<li><span>Body:</span><input class='media-comment-input-body'/></li>" +
-                        $"<li><button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></li>" +
-                    $"</ul></div></div></div>";
+                    $"<div class='hide media-input'>" +
+                    $"<form action='/Membership/CreateComment' data-ajax='true' data-ajax-update='#comments'>" +
+                        $"<input type='hidden' id='parentId' value='{id}'/>" +
+                        $"<input type='hidden' id='courseId' value='{courseId}'/>" +
+                        $"<ul>" +
+                            $"<li><span>Title:</span><input class='media-comment-input-title'/></li>" +
+                            $"<li><span>Body:</span><input class='media-comment-input-body'/></li>" +
+                            $"<li><button type='submit' class='btn btn-success btn-sm media-save'>Save</button></li>" +
+                        $"</ul>" +
+                    $"</form>" +
+                    $"</div></div></div>";
+
+            //$"<div>{body}</div>" +
+            //$"<div class='hide media-input'><ul>" +
+            //    $"<li><span>Title:</span><input class='media-comment-input-title'/></li>" +
+            //    $"<li><span>Body:</span><input class='media-comment-input-body'/></li>" +
+            //    $"<li><button id='{id}' class='btn btn-success btn-sm media-save'>Save</button></li>" +
+            //$"</ul></div></div></div>";
+
+            /*
+                <form asp-action="Delete" asp-route-id="@customer.Id" data-ajax="true" data-ajax-update="#CustomerList">
+                    <button type="submit" class="btn btn-sm btn-danger d-none d-md-inline-block">
+                        Delete
+                    </button>
+                </form>
+             */
         }
 
         private string RecursiveComments(IEnumerable<CommentDTO> comments)
         {
             foreach (var parent in comments)
             {
-                result.Append($"<li>{MediaTag(parent.Id, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}");
+                result.Append($"<li>{MediaTag(parent.Id, parent.CourseId, parent.Title, parent.Body, parent.AvatarUrl, parent.ChildComments.Count)}");
                 if (parent.ChildComments.Count > 0) result.Append("<ul>");
 
                 foreach (var child in parent.ChildComments)
                 {
-                    result.Append($"<li>{MediaTag(child.Id, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}");
+                    result.Append($"<li>{MediaTag(child.Id, child.CourseId, child.Title, child.Body, child.AvatarUrl, child.ChildComments.Count)}");
                     if (child.ChildComments.Count > 0)
                     {
                         result.Append("<ul>");

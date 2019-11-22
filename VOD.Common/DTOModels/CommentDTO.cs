@@ -8,6 +8,7 @@ namespace VOD.Common.DTOModels
     {
         public int Id { get; set; }
         public int? ParentId { get; set; } = null;
+        public int CourseId { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
         public string AvatarUrl { get; set; }

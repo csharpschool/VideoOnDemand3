@@ -1,7 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VOD.Common.DTOModels;
 using VOD.Common.Entities;
 using VOD.Database.Services;
 
@@ -10,12 +12,14 @@ namespace VOD.UI.Services
     public class UIMockService : IUIReadService
     {
         #region Properties
-        private readonly MockData _db = new MockData();
+        private static readonly MockData _db = new MockData();
+        private readonly IMapper _mapper;
         #endregion
 
         #region Constructor
-        public UIMockService()
+        public UIMockService(IMapper mapper)
         {
+            _mapper = mapper;
         }
         #endregion
 
@@ -108,7 +112,7 @@ namespace VOD.UI.Services
 
             return video;
         }
-        public async Task<Comment> GetCommentAsync(int commentId)
+        public async Task<Comment> GetCommentAsync(int commentId = 0)
         {
             var comment = await Task.Run(() => {
                 var comment = _db.Comments.Single(v => v.Id.Equals(commentId));
@@ -119,10 +123,11 @@ namespace VOD.UI.Services
 
             return comment;
         }
-
         public async Task<IEnumerable<Comment>> GetCommentsAsync(int courseId)
         {
             var comments = await Task.Run(() => {
+                if (courseId.Equals(0)) return _db.Comments;
+
                 var comments = _db.Comments.Where(c => c.CourseId.Equals(courseId));
                 if (comments == null) return default;
 
@@ -131,6 +136,29 @@ namespace VOD.UI.Services
 
             return comments;
         }
+
+        public async Task AddCommentAsync(Comment comment)
+        {
+            try
+            {
+                var parentComment = await GetCommentAsync((int)comment.ParentId);
+                comment.Id = new Random().Next(100, int.MaxValue);
+
+                // Should already be in the DTO
+                comment.AvatarUrl = "/images/avatar.png";
+                // End
+
+                comment.ParentComment = parentComment;
+                parentComment.ChildComments.Add(comment);
+                //_db.Comments.Add(comment);
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
+
         #endregion
 
     }

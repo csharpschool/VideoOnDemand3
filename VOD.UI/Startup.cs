@@ -77,7 +77,7 @@ namespace VOD.UI
                     .ForMember(dest => dest.ModuleTitle,
                         src => src.MapFrom(s => s.Title));
 
-                cfg.CreateMap<Comment, CommentDTO>();
+                cfg.CreateMap<Comment, CommentDTO>().ReverseMap();
 
             });
             var mapper = config.CreateMapper();
